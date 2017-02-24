@@ -16,10 +16,10 @@ public class Main {
 	public final static int VER_SOCIOS = 4;
 	public final static int VER_LIBRO_POR_ID = 5;
 	public final static int VER_SOCIO_POR_ID = 6;
-	public final static int DELETE_LIBROS_POR_ID = 7;
-	public final static int DELETE_SOCIOS_POR_ID = 8;
+	public final static int DELETE_LIBRO_POR_ID = 7;
+	public final static int DELETE_SOCIO_POR_ID = 8;
 	public final static int VER_LIBROS_POR_AUTOR = 9;
-	public final static int SALIR = 0;
+	public final static int SALIR = 10;
 	
     int id;
 	
@@ -41,8 +41,11 @@ public class Main {
 			System.out.println("3. Ver libros");
 			System.out.println("4. Ver socios");
 			System.out.println("5. Ver libro por id");
-			System.out.println("6. Ver libros por autor");
-			System.out.println("0. Salir del menú\n");
+			System.out.println("6. Ver socio por id");
+			System.out.println("7. Delete libro por id");
+			System.out.println("8. Delete socio por id");
+			System.out.println("9. Ver libros por autor");
+			System.out.println("10. Salir del menú\n");
 			
 			opcion = Integer.parseInt(scan.nextLine());
 			switch (opcion) {
@@ -112,12 +115,31 @@ public class Main {
             	socio = sm.select(id); //socio objetua matxakatu
             	socio.mostrarInfo();
             	
+            case DELETE_LIBRO_POR_ID:
+            	
+            	System.out.println("-ELIMINAR LIBRO POR ID-");
+				System.out.print("Id del libro que desees eliminar: ");
+				int idLibroElim = scan.nextInt();
+				lm.delete(idLibroElim);
+            	
                 break;
+            case DELETE_SOCIO_POR_ID:
+            	
+            	System.out.println("-BUSCAR SOCIO POR ID-");
+				System.out.print("Id del socio del que deseas informacion: ");
+				int idSocio = scan.nextInt();
+				sm.select(idSocio).mostrarInfo();
+				break;
+            
+
             case VER_LIBROS_POR_AUTOR:
             	System.out.println("Sartu autore bat");
-            	String autorea = scan.nextLine();
-            	libros = lm.selectLibrosDeAutor(autorea);//no se puede crear un objeto libro de libro sino que hay que usar librosporque es una arraylistlo que queremos guardar (la arraylist)
-            	
+            	autor = scan.nextLine();
+            	//no se puede crear un objeto libro de libro sino que hay que usar librosporque es una arraylistlo que queremos guardar (la arraylist)
+            	Iterator<Libro> i = lm.selectLibrosDeAutor(autor).iterator();
+				while (i.hasNext()){
+					i.next().mostrarInfo();
+				}
             	
             	break;
 				
